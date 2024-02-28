@@ -35,15 +35,12 @@
         </thead>
         <tbody>
   
-          @for (item of employees; track $index){
+          @for (item of employees; track item.id){
           <tr>
-            <td><a href="">{{ $index }} </a></td>
+            <td><a href="">{{ item.id }} </a></td>
             <td>{{ item.name }} </td>
             <td>{{ item.username }}</td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleEdit">
-                Edit
-              </button>
-            </td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleEdit">Edit</button></td>
             <td><button class="btn btn-danger" onclick="">Delete</button></td>
           </tr>
           }

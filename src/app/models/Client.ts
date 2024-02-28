@@ -4,7 +4,7 @@ export interface ApiResponse<T> {
 }
 
 export interface IClient {
-    _id?: string;
+    id: string;
     name: string;
     username: string;
     password: string;
