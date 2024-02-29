@@ -4,7 +4,9 @@ import { IClient } from '../../models/Client';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
-
+/**
+ * Decorador
+ */
 @Component({
   selector: 'app-client',
   standalone: true,

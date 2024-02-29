@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiResponse, IClient } from '../models/Client';
+import { IClient } from '../models/Client';
 
+/**
+ * Decorador
+ */
 @Injectable({
   providedIn: 'root'
 })
