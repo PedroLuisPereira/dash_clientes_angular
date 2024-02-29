@@ -7,30 +7,30 @@ import { ApiResponse, IClient } from '../models/Client';
   providedIn: 'root'
 })
 
-export class EmployeeService {
+export class ClientService {
 
   apiurl = 'http://localhost:8080/clients';
 
   constructor(private http: HttpClient) { }
 
-  getAllEmployee(): Observable<IClient[]> {
+  listAll(): Observable<IClient[]> {
     return this.http.get<IClient[]>(`${this.apiurl}`);
   }
 
-  getEmployee(id: string): Observable<ApiResponse<IClient>> {
-    return this.http.get<ApiResponse<IClient>>(`${this.apiurl}/${id}`);
+  listById(id: String): Observable<IClient> {
+    return this.http.get<IClient>(`${this.apiurl}/${id}`);
   }
 
-  createEmployee(employee: IClient): Observable<any> {
+  create(employee: any): Observable<any> {
     return this.http.post(`${this.apiurl}`, employee);
   }
 
-  updateEmployee(id: string, employee: IClient): Observable<any> {
+  update(id: String, employee: any): Observable<any> {
     return this.http.put(`${this.apiurl}/${id}`, employee);
   }
 
-  deleteEmployee(id: string): Observable<ApiResponse<any>> {
-    return this.http.delete<ApiResponse<any>>(`${this.apiurl}/${id}`);
+  delete(id: String): Observable<any> {
+    return this.http.delete(`${this.apiurl}/${id}`);
   }
 }
 
