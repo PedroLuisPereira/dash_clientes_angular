@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { IClient } from '../../models/Client';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -82,7 +83,7 @@ export class ClientComponent {
         
         //cerrar modal
         document.getElementById("closeModalCreate")?.click();
-        //Swal.fire('Guardado', 'Registro creado con éxito', 'success');
+        Swal.fire('Guardado', 'Registro creado con éxito', 'success');
         //this.cleanErrors();
       },
       error: (error) => {
@@ -126,7 +127,7 @@ export class ClientComponent {
 
         //cerrar modal
         document.getElementById("closeModalEdit")?.click();
-        //Swal.fire('Guardado', 'Registro creado con éxito', 'success');
+        Swal.fire('Guardado', 'Registro actualizado con éxito', 'success');
         //this.cleanErrors();
       },
       error: (error) => {
@@ -161,7 +162,7 @@ export class ClientComponent {
 
         //cerrar modal
         //document.getElementById("closeModalEdit")?.click();
-        //Swal.fire('Guardado', 'Registro creado con éxito', 'success');
+        Swal.fire('Eliminado', 'Registro eliminado con éxito', 'success');
         //this.cleanErrors();
       },
       error: (error) => {
