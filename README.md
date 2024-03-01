@@ -1,4 +1,9 @@
 # PROYECTO BASICO DE ANGULAR
+Angular CLI: 17.2.1
+Node: 20.11.1
+Package Manager: npm 10.4.0
+OS: win32 x64
+Angular: 17.2.3
 
 # DashClientesAngular
 
