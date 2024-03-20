@@ -12,7 +12,7 @@ import { IClient } from '../models/Client';
 
 export class ClientService {
 
-  apiurl = 'http://localhost:8080/clients';
+  apiurl = 'http://localhost:8080/api/clients';
 
   constructor(private http: HttpClient) { }
 

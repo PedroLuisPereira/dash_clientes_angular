@@ -1,137 +1,147 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
-      <a class="navbar-brand" href="#">User Management App</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+  <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+    <a class="navbar-brand" href="#">User Management App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  </nav>
+</header>
+
+<br>
+
+<div class="row">
+
+  <div class="container">
+    <h3 class="text-center">List of Users</h3>
+    <hr>
+
+    <div class="container text-left">
+      <button type="button" class="btn btn-success" (click)="clean()" data-toggle="modal" data-target="#exampleModal">
+        Add New User
       </button>
-  
-    </nav>
-  </header>
-  
-  <br>
-  
-  <div class="row">
-  
-    <div class="container">
-      <h3 class="text-center">List of Users</h3>
-      <hr>
-  
-      <div class="container text-left">
-        <button type="button" class="btn btn-success" (click)="clean()" data-toggle="modal" data-target="#exampleModal">
-          Add New User
+    </div>
+    <br>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        @for (item of clients; track item.id){
+        <tr>
+          <td><a href="">{{ item.id }} </a></td>
+          <td>{{ item.name }} </td>
+          <td>{{ item.email }}</td>
+          <td><button type="button" class="btn btn-primary" (click)="listById(item.id)" data-toggle="modal"
+              data-target="#exampleEdit">Edit</button></td>
+          <td><button class="btn btn-danger" (click)="destroy(item.id)" onclick="">Delete</button></td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#modal-default">Open Modal</button>
+<button id="closeModalCreate" [hidden]="true" data-toggle="modal" data-target="#exampleModal" class="btn btn-default"
+  data-dismiss="modal">Close</button>
+<button id="closeModalEdit" [hidden]="true" data-toggle="modal" data-target="#exampleEdit" class="btn btn-default"
+  data-dismiss="modal">Close</button>
+
+
+<!-- Modal new -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Client</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <br>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-  
-          @for (item of employees; track item.id){
-          <tr>
-            <td><a href="">{{ item.id }} </a></td>
-            <td>{{ item.name }} </td>
-            <td>{{ item.username }}</td>
-            <td><button type="button" class="btn btn-primary" (click)="listById(item.id)" data-toggle="modal" data-target="#exampleEdit">Edit</button></td>
-            <td><button class="btn btn-danger" (click)="destroy(item.id)" onclick="">Delete</button></td>
-          </tr>
-          }
-        </tbody>
-      </table>
-  
-    </div>
-  </div>
+      <div class="modal-body">
+        <div class="card-body">
 
-  <button id="openModalButton" [hidden]="true" data-toggle="modal"  data-target="#modal-default">Open Modal</button>
-  <button id="closeModalCreate" [hidden]="true" data-toggle="modal" data-target="#exampleModal" class="btn btn-default" data-dismiss="modal">Close</button>
-  <button id="closeModalEdit" [hidden]="true" data-toggle="modal" data-target="#exampleEdit" class="btn btn-default" data-dismiss="modal">Close</button>
-  
-  
-  <!-- Modal new -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add New Client</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card-body">
-  
-            <div>
-  
-              <fieldset class="form-group">
-                <label>User Name</label> 
-                <input type="text" [(ngModel)]="name" class="form-control" name="name" required="required">
-              </fieldset>
-  
-              <fieldset class="form-group">
-                <label>User Email</label> 
-                <input type="email" [(ngModel)]="username" class="form-control" name="email">
-                <p class="text-danger">{{ errorUsername }}</p>
-              </fieldset>
-  
-              <fieldset class="form-group">
-                <label>User password</label> 
-                <input type="password" [(ngModel)]="password" value="" class="form-control" name="country">
-              </fieldset>
-  
-            </div>
+          <div>
+
+            <fieldset class="form-group">
+              <label>User Name</label>
+              <input type="text" [(ngModel)]="name" class="form-control" name="name" required="required">
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label>User Email</label>
+              <input type="email" [(ngModel)]="email" class="form-control" name="email">
+              <p class="text-danger">{{ errorUsername }}</p>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label>User password</label>
+              <input type="text" [(ngModel)]="address" value="" class="form-control" name="country">
+            </fieldset>
+
           </div>
         </div>
+      </div>
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" [disabled]="getDisable()" (click)="create()" class="btn btn-success">{{ btnGuardar }}</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" [disabled]="getDisable()" (click)="create()" class="btn btn-success">{{ btnGuardar
+          }}</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal edit -->
+<div class="modal fade" id="exampleEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+
+          <form action="?action=create" method="post">
+
+            <fieldset class="form-group">
+              <label>User Name</label> <input type="text" [(ngModel)]="name" class="form-control" name="name"
+                required="required">
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label>User Email</label> <input type="email" [(ngModel)]="email" class="form-control" name="email">
+              <p class="text-danger">{{ errorUsername }}</p>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label>User Email</label> <input type="email" [(ngModel)]="address" class="form-control" name="email">
+            </fieldset>
+
+          </form>
         </div>
-
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" [disabled]="getDisableEdit()" (click)="update()" class="btn btn-success">{{ btnGuardar
+          }}</button>
       </div>
     </div>
   </div>
-  
-  <!-- Modal edit -->
-  <div class="modal fade" id="exampleEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="card-body">
-  
-            <form action="?action=create" method="post">
-  
-              <fieldset class="form-group">
-                <label>User Name</label> <input type="text" [(ngModel)]="name" class="form-control" name="name" required="required">
-              </fieldset>
-  
-              <fieldset class="form-group">
-                <label>User Email</label> <input type="email" [(ngModel)]="username" class="form-control" name="email">
-                <p class="text-danger">{{ errorUsername }}</p>
-              </fieldset>
-  
-            </form>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" [disabled]="getDisableEdit()" (click)="update()" class="btn btn-success">{{ btnGuardar }}</button>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>

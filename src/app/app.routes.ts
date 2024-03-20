@@ -2,5 +2,6 @@ import { Routes } from '@angular/router';
 import { ClientComponent } from './components/client/client.component';
 
 export const routes: Routes = [
-    { path: '', component: ClientComponent }
+    { path: '', component: ClientComponent },
+    { path: 'clientes', component: ClientComponent },
 ];

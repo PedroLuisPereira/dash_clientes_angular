@@ -18,11 +18,14 @@ import Swal from 'sweetalert2';
 
 export class ClientComponent {
 
-  employees: IClient[] = [];
+  //objeto cliente
+  clients: IClient[] = [];
   id: String = "";
   name: String = "";
-  username: String = "";
-  password: String = "";
+  email: String = "";
+  address: String = "";
+
+
   btnGuardar = "Save";
 
   errorUsername: String = "";
@@ -40,7 +43,7 @@ export class ClientComponent {
     this.clientService.listAll().subscribe({
       next: (response) => {
 
-        this.employees = response;
+        this.clients = response;
 
 
         // if (response.data) {
@@ -60,7 +63,7 @@ export class ClientComponent {
       next: (response) => {
         this.id = response.id;
         this.name = response.name;
-        this.username = response.username;
+        this.email = response.email;
       },
     });
   }
@@ -74,8 +77,8 @@ export class ClientComponent {
     //json
     let json = {
       name: this.name,
-      username: this.username,
-      password: this.password
+      email: this.email,
+      address: this.address
     };
 
     this.clientService.create(json).subscribe({
@@ -119,7 +122,8 @@ export class ClientComponent {
     //json
     let json = {
       name: this.name,
-      username: this.username
+      email: this.email,
+      address: this.address
     };
 
     this.clientService.update(this.id, json).subscribe({
@@ -183,7 +187,7 @@ export class ClientComponent {
   }
 
   getDisable() {
-    if (this.name == "" || this.username == "" || this.password == "") {
+    if (this.name == "" || this.address == "" || this.address == "") {
       return true;
     } else {
       return false;
@@ -191,7 +195,7 @@ export class ClientComponent {
   }
 
   getDisableEdit() {
-    if (this.name == "" || this.username == "") {
+    if (this.name == "" || this.email == "") {
       return true;
     } else {
       return false;
@@ -201,8 +205,8 @@ export class ClientComponent {
   clean(): void {
     this.id = "";
     this.name = "";
-    this.username = "";
-    this.password = "";
+    this.email = "";
+    this.address = "";
     this.errorUsername = "";
     this.btnGuardar = "Save";
   }
