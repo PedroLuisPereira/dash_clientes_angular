@@ -1,6 +1,6 @@
-export interface IClient {
-    id: string;
-    name: string;
-    email: string;
-    address: string;
+export class Client {
+    id: string = '';
+    name: string = '';
+    email: string = '';
+    address: string ='';
 }

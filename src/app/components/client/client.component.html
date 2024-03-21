@@ -17,9 +17,11 @@
     <h3 class="text-center">List of Clients</h3>
     <hr>
 
-    <div class="alert alert-success" role="alert">
-      Cargando...
-    </div>
+    @if (inicio) {
+      <div class="alert alert-success" role="alert">
+        Cargando...
+      </div>
+    }
 
     <div class="container text-left">
       <button type="button" class="btn btn-success" (click)="clean()" data-toggle="modal" data-target="#exampleModal">
@@ -45,10 +47,8 @@
           <td><a href="">{{ item.id }} </a></td>
           <td>{{ item.name }} </td>
           <td>{{ item.email }}</td>
-          <td><button type="button" class="btn btn-warning" (click)="listById(item.id)" data-toggle="modal"
-              data-target="#exampleEdit">Edit</button></td>
-          <td><button type="button" class="btn btn-primary" (click)="listById(item.id)" data-toggle="modal"
-              data-target="#exampleEdit">Edit</button></td>
+          <td><button type="button" [routerLink] = "['/facturas']" class="btn btn-warning">Invoices</button></td>
+          <td><button type="button" class="btn btn-primary" (click)="listById(item.id)" data-toggle="modal" data-target="#exampleEdit">Edit</button></td>
           <td><button class="btn btn-danger" (click)="destroy(item.id)" onclick="">Delete</button></td>
         </tr>
         }
@@ -85,13 +85,14 @@
 
               <fieldset class="form-group">
                 <label>Client Name</label>
-                <input type="text" [(ngModel)]="name" class="form-control" name="name" required="required">
+                <input type="text" [(ngModel)]="name" class="form-control" name="name" required>
+                <p class="text-danger">{{ errorName }}</p>
               </fieldset>
 
               <fieldset class="form-group">
                 <label>Client Email</label>
-                <input type="email" [(ngModel)]="email" class="form-control" required="" name="email">
-                <p class="text-danger">{{ errorUsername }}</p>
+                <input type="email" [(ngModel)]="email" class="form-control" required name="email">
+                <p class="text-danger">{{ errorEmail }}</p>
               </fieldset>
 
               <fieldset class="form-group">
@@ -119,7 +120,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Client</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -127,23 +128,26 @@
       <div class="modal-body">
         <div class="card-body">
 
-          <form action="?action=create" method="post">
+          <div >
 
             <fieldset class="form-group">
-              <label>User Name</label> <input type="text" [(ngModel)]="name" class="form-control" name="name"
-                required="required">
+              <label>User Name</label> 
+              <input type="text" [(ngModel)]="name" class="form-control" name="name" required="required">
+              <p class="text-danger">{{ errorName }}</p>
             </fieldset>
 
             <fieldset class="form-group">
-              <label>User Email</label> <input type="email" [(ngModel)]="email" class="form-control" name="email">
-              <p class="text-danger">{{ errorUsername }}</p>
+              <label>User Email</label>
+              <input type="email" [(ngModel)]="email" class="form-control" name="email">
+              <p class="text-danger">{{ errorEmail }}</p>
             </fieldset>
 
             <fieldset class="form-group">
-              <label>User Email</label> <input type="email" [(ngModel)]="address" class="form-control" name="email">
+              <label>User Address</label>
+              <input type="text" [(ngModel)]="address" class="form-control" name="address">
             </fieldset>
 
-          </form>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

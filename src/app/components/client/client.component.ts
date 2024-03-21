@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ClientService } from '../../services/client.service';
-import { IClient } from '../../models/Client';
+import { Client } from '../../models/Client';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import Swal from 'sweetalert2';
 
 /**
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './client.component.html',
   styleUrl: './client.component.css'
 })
@@ -19,55 +20,58 @@ import Swal from 'sweetalert2';
 export class ClientComponent {
 
   //objeto cliente
-  clients: IClient[] = [];
-  id: String = "";
-  name: String = "";
-  email: String = "";
-  address: String = "";
+  clients: Client[] = [];
+  client: Client = new Client();
+
+  //data-binding
+  id: string = "";
+  name: string = "";
+  email: string = "";
+  address: string = "";
 
 
   btnGuardar = "Save";
+  inicio: boolean = false;
+  errorName: String = "";
+  errorEmail: String = "";
 
-  errorUsername: String = "";
-
-  constructor(
-    private clientService: ClientService,
-    //private toastr: ToastrService
-  ) { }
+  constructor(private clientService: ClientService) { }
 
   ngOnInit(): void {
     this.listAll();
   }
 
   listAll() {
-    this.clientService.listAll().subscribe(
-      // clientes => this.clients = clientes // una forma
-      {
-        next: (response) => {
-          this.clients = response;
 
+    this.inicio = true;
 
-          // if (response.data) {
-          //   this.employees = response.data;
-          // }
-
-        },
+    this.clientService.listAll().subscribe({
+      next: (response) => {
+        this.clients = response;
+        this.inicio = false;
+      },
+      error: (error) => {
+        this.inicio = false;
       }
-
-    );
+    });
   }
 
-  listById(id: String) {
+  listById(id: string) {
 
-    this.errorUsername = "";
     this.btnGuardar = "Save";
+    this.clean();
 
     this.clientService.listById(id).subscribe({
       next: (response) => {
         this.id = response.id;
         this.name = response.name;
         this.email = response.email;
+        this.address = response.address;
+
+        console.log(this.id);
+
       },
+
     });
   }
 
@@ -75,16 +79,21 @@ export class ClientComponent {
 
     //iniciar
     this.btnGuardar = "Saving...";
-    //this.cleanErrors();
 
-    //json
-    let json = {
-      name: this.name,
-      email: this.email,
-      address: this.address
-    };
+    this.validaciones();
 
-    this.clientService.create(json).subscribe({
+    if (this.name == "" || this.email == "") {
+      this.btnGuardar = "Save";
+      return;
+    }
+
+
+    //cliente
+    this.client.name = this.name;
+    this.client.email = this.email;
+    this.client.address = this.address;
+
+    this.clientService.create(this.client).subscribe({
       next: (data) => {
 
         this.btnGuardar = "Save";
@@ -101,8 +110,8 @@ export class ClientComponent {
         }
 
         if (error.status == 400) {
-          if (error.error.message == "Username ya existe") {
-            this.errorUsername = error.error.message;
+          if (error.error.message == "Email ya existe") {
+            this.errorEmail = error.error.message;
             //this.isCodigo = true;
           }
         }
@@ -122,14 +131,12 @@ export class ClientComponent {
     //iniciar
     this.btnGuardar = "Saving...";
 
-    //json
-    let json = {
-      name: this.name,
-      email: this.email,
-      address: this.address
-    };
+    //cliente
+    this.client.name = this.name;
+    this.client.email = this.email;
+    this.client.address = this.address;
 
-    this.clientService.update(this.id, json).subscribe({
+    this.clientService.update(this.id, this.client).subscribe({
       next: (data) => {
 
         this.btnGuardar = "Save";
@@ -146,8 +153,8 @@ export class ClientComponent {
         }
 
         if (error.status == 400) {
-          if (error.error.message == "Username ya existe") {
-            this.errorUsername = error.error.message;
+          if (error.error.message == "Email ya existe") {
+            this.errorEmail = error.error.message;
             //this.isCodigo = true;
           }
         }
@@ -210,8 +217,20 @@ export class ClientComponent {
     this.name = "";
     this.email = "";
     this.address = "";
-    this.errorUsername = "";
+    this.errorName = "";
+    this.errorEmail = "";
     this.btnGuardar = "Save";
+  }
+
+  validaciones(): void {
+    if (this.name == "") {
+      this.errorName = "El nombre es requerido";
+    }
+
+    if (this.email == "") {
+      this.errorEmail = "El email es requerido";
+    }
+
   }
 
 

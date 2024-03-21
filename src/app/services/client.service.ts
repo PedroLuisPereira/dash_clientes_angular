@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient } from '../models/Client';
+import { Client } from '../models/Client';
 
 /**
  * Decorador
@@ -16,20 +16,20 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
-  listAll(): Observable<IClient[]> {
-    return this.http.get<IClient[]>(`${this.apiurl}`);
+  listAll(): Observable<Client[]> {
+    return this.http.get<Client[]>(`${this.apiurl}`);
   }
 
-  listById(id: String): Observable<IClient> {
-    return this.http.get<IClient>(`${this.apiurl}/${id}`);
+  listById(id: String): Observable<Client> {
+    return this.http.get<Client>(`${this.apiurl}/${id}`);
   }
 
-  create(employee: any): Observable<any> {
-    return this.http.post(`${this.apiurl}`, employee);
+  create(client: Client): Observable<Client> {
+    return this.http.post<Client>(`${this.apiurl}`, client);
   }
 
-  update(id: String, employee: any): Observable<any> {
-    return this.http.put(`${this.apiurl}/${id}`, employee);
+  update(id: string, client: Client): Observable<Client> {
+    return this.http.put<Client>(`${this.apiurl}/${id}`, client);
   }
 
   delete(id: String): Observable<any> {
