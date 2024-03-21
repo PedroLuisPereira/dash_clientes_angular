@@ -14,12 +14,16 @@
 <div class="row">
 
   <div class="container">
-    <h3 class="text-center">List of Users</h3>
+    <h3 class="text-center">List of Clients</h3>
     <hr>
+
+    <div class="alert alert-success" role="alert">
+      Cargando...
+    </div>
 
     <div class="container text-left">
       <button type="button" class="btn btn-success" (click)="clean()" data-toggle="modal" data-target="#exampleModal">
-        Add New User
+        Add New Client
       </button>
     </div>
     <br>
@@ -29,6 +33,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>Email</th>
+          <th>Facturas</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -40,6 +45,8 @@
           <td><a href="">{{ item.id }} </a></td>
           <td>{{ item.name }} </td>
           <td>{{ item.email }}</td>
+          <td><button type="button" class="btn btn-warning" (click)="listById(item.id)" data-toggle="modal"
+            data-target="#exampleEdit">Edit</button></td>
           <td><button type="button" class="btn btn-primary" (click)="listById(item.id)" data-toggle="modal"
               data-target="#exampleEdit">Edit</button></td>
           <td><button class="btn btn-danger" (click)="destroy(item.id)" onclick="">Delete</button></td>

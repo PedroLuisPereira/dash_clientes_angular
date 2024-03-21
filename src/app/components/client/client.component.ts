@@ -40,18 +40,21 @@ export class ClientComponent {
   }
 
   listAll() {
-    this.clientService.listAll().subscribe({
-      next: (response) => {
+    this.clientService.listAll().subscribe(
+      // clientes => this.clients = clientes // una forma
+      {
+        next: (response) => {
+          this.clients = response;
 
-        this.clients = response;
 
+          // if (response.data) {
+          //   this.employees = response.data;
+          // }
 
-        // if (response.data) {
-        //   this.employees = response.data;
-        // }
+        },
+      }
 
-      },
-    });
+    );
   }
 
   listById(id: String) {
@@ -83,9 +86,9 @@ export class ClientComponent {
 
     this.clientService.create(json).subscribe({
       next: (data) => {
-        
+
         this.btnGuardar = "Save";
-        
+
         //cerrar modal
         document.getElementById("closeModalCreate")?.click();
         Swal.fire('Guardado', 'Registro creado con éxito', 'success');
@@ -159,7 +162,7 @@ export class ClientComponent {
 
   }
 
-  destroy(id : String): void {
+  destroy(id: String): void {
 
     this.clientService.delete(id).subscribe({
       next: (data) => {
@@ -176,7 +179,7 @@ export class ClientComponent {
         if (error == undefined) {
           //Swal.fire("Error en el proceso", '', "error");
         }
-        
+
       }
     });
 
