@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute, RouterModule} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -12,14 +12,17 @@ import {map} from 'rxjs/operators';
 })
 export class InvoiceComponent {
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     const id: Observable<string> = this.activatedRoute.params.pipe(map((p) => p['id']));
     let v;
     id.subscribe( perametro  => v = perametro )
 
-    console.log(v);
+    if(v == 5){
+      //redirigir
+      this.router.navigate(['dashboard'])
+    }
     
 
     
