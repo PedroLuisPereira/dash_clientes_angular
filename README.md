@@ -5,6 +5,8 @@ Package Manager: npm 10.4.0
 OS: win32 x64
 Angular: 17.2.3
 
+GitHub=  https://github.com/PedroLuisPereira/dash_clientes_angular.git
+
 # DashClientesAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.1.
